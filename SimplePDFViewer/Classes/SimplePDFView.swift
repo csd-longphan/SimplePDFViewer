@@ -139,7 +139,7 @@ class SimplePDFView: UIView {
         self.pdf = pdf
         
         pdfView.displayDirection = .horizontal
-        pdfView.displayMode = .singlePageContinuous
+        pdfView.displayMode = .singlePage
         pdfView.autoScales = true
 //        pdfView.maxScaleFactor = 4
 //        pdfView.minScaleFactor = pdfView.scaleFactorForSizeToFit
