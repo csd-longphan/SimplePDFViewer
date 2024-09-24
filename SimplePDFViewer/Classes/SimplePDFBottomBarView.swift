@@ -105,8 +105,10 @@ class SimplePDFBottomBarView: UIView {
 
     private func updatePageNumberView() {
         if #available(iOS 16.0, *) {
-            bottomBarPrevPageButton.isHidden = currentPage == 1
-            bottomBarNextPageButton.isHidden = currentPage == totalPages
+            bottomBarPrevPageButton.isHidden = false
+            bottomBarNextPageButton.isHidden = false
+            bottomBarPrevPageButton.isEnabled = currentPage > 1
+            bottomBarNextPageButton.isEnabled = currentPage < totalPages
         }
         bottomBarPageCount.text = "\(String(currentPage)) of \(String(totalPages))"
         bottomBarPageCount.sizeToFit()
