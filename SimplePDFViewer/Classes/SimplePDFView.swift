@@ -140,8 +140,9 @@ class SimplePDFView: UIView {
         
         pdfView.displayDirection = .horizontal
         pdfView.displayMode = .singlePageContinuous
-        pdfView.maxScaleFactor = 4
-        pdfView.minScaleFactor = pdfView.scaleFactorForSizeToFit
+        pdfView.autoScales = true
+//        pdfView.maxScaleFactor = 4
+//        pdfView.minScaleFactor = pdfView.scaleFactorForSizeToFit
         pdfView.document = pdf
         addSubview(pdfView)
         pdfView.snp.makeConstraints() { make in
