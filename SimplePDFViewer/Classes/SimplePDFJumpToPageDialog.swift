@@ -42,28 +42,14 @@ class SimplePDFJumpToPageDialog: NSObject {
 }
 
 extension SimplePDFJumpToPageDialog: UITextFieldDelegate {
-    
-    // Only allow positive numerical inputs
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        // Get the full string ("string" is only the current change)
-        let currentText = textField.text ?? ""
-        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let newText = textField.text ?? ""
         let parsedNumber = getValidNumber(newText)
         
         // We'll try to parse the new number to update the field
         if let number = parsedNumber {
             specifiedPage = number
-            return true
-        } else if string.isEmpty {
-            // Empty is when user has pressed delete key - should always return true
-            specifiedPage = nil
-            return true
         }
-        
-        // Not a valid change
-        specifiedPage = nil
-        return false
     }
     
     // Checks if a string is a number within the page range and returns that number, or nil if invalid
