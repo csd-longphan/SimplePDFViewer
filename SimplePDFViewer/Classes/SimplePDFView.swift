@@ -138,7 +138,7 @@ class SimplePDFView: UIView {
     private func initPDFView(_ pdf: PDFDocument) {
         self.pdf = pdf
         
-        pdfView.displayDirection = .vertical
+        pdfView.displayDirection = .horizontal
         pdfView.displayMode = .singlePageContinuous
         pdfView.maxScaleFactor = 4
         pdfView.minScaleFactor = pdfView.scaleFactorForSizeToFit
