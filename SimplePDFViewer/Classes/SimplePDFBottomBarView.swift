@@ -12,6 +12,8 @@ import SnapKit
 protocol SimplePDFBottomBarActionDelegate: AnyObject {
     func onShareButtonPressed(_ sender: SimplePDFBottomBarView)
     func onJumpToPagePressed(_ sender: SimplePDFBottomBarView)
+    func onNextPagePressed(_ sender: SimplePDFBottomBarView)
+    func onPrevPagePressed(_ sender: SimplePDFBottomBarView)
 }
 
 class SimplePDFBottomBarView: UIView {
@@ -61,10 +63,12 @@ class SimplePDFBottomBarView: UIView {
 
         let bottomBarShareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonPressed))
         let bottomBarJumpToPageButton = UIBarButtonItem(title: "Jump To", style: .plain, target: self, action: #selector(jumpToPagePressed))
+        let bottomBarPrevPageButton = UIBarButtonItem(title: "<", style: .plain, target: self, action: #selector(jumpToPrevPage))
+        let bottomBarNextPageButton = UIBarButtonItem(title: ">", style: .plain, target: self, action: #selector(jumpToNextPage))
         let bottomBarItemPageNumber = UIBarButtonItem(customView: bottomBarPageCount)
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        bottomBar.setItems([bottomBarShareButton, flexibleSpace,
-                            bottomBarItemPageNumber, flexibleSpace,
+        bottomBar.setItems([bottomBarShareButton, flexibleSpace,bottomBarPrevPageButton,
+                            bottomBarItemPageNumber,bottomBarNextPageButton, flexibleSpace,
                             bottomBarJumpToPageButton], animated: false)
 
         addSubview(bottomBar)
@@ -83,6 +87,14 @@ class SimplePDFBottomBarView: UIView {
     
     @objc private func jumpToPagePressed() {
         delegate?.onJumpToPagePressed(self)
+    }
+    
+    @objc private func jumpToNextPage() {
+        delegate?.onNextPagePressed(self)
+    }
+    
+    @objc private func jumpToPrevPage() {
+        delegate?.onPrevPagePressed(self)
     }
 
     private func updatePageNumberView() {

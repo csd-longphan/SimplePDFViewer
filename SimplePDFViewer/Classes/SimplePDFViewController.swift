@@ -146,6 +146,22 @@ extension SimplePDFViewController: SimplePDFTopBarDelegate, SimplePDFBottomBarAc
         }
         showJumpToPageDialog(for: pdf)
     }
+
+    internal func onNextPagePressed(_ sender: SimplePDFBottomBarView) {
+        guard let pdf = pdf else {
+            print("PDF has not loaded yet.")
+            return
+        }
+        pdfView.pdfView.goToNextPage(sender)
+    }
+
+    internal func onPrevPagePressed(_ sender: SimplePDFBottomBarView) {
+        guard let pdf = pdf else {
+            print("PDF has not loaded yet.")
+            return
+        }
+        pdfView.pdfView.goToPreviousPage(sender)
+    }
     
     internal func didLoadSuccessfully(_ sender: SimplePDFView) {
         self.pdf = sender.pdf
