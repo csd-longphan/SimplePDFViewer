@@ -22,6 +22,8 @@ class SimplePDFBottomBarView: UIView {
     
     private var bottomBar: UIToolbar = UIToolbar()
     private var bottomBarPageCount: UILabel = UILabel()
+    private var bottomBarPrevPageButton = UIBarButtonItem()
+    private var bottomBarNextPageButton = UIBarButtonItem()
 
     // Configurable properties
     weak var delegate: SimplePDFBottomBarActionDelegate?
@@ -63,10 +65,14 @@ class SimplePDFBottomBarView: UIView {
 
         let bottomBarShareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonPressed))
         let bottomBarJumpToPageButton = UIBarButtonItem(title: "Jump To", style: .plain, target: self, action: #selector(jumpToPagePressed))
-        let bottomBarPrevPageButton = UIBarButtonItem(title: "<", style: .plain, target: self, action: #selector(jumpToPrevPage))
-        let bottomBarNextPageButton = UIBarButtonItem(title: ">", style: .plain, target: self, action: #selector(jumpToNextPage))
+        bottomBarPrevPageButton = UIBarButtonItem(title: "<", style: .plain, target: self, action: #selector(jumpToPrevPage))
+        bottomBarNextPageButton = UIBarButtonItem(title: ">", style: .plain, target: self, action: #selector(jumpToNextPage))
         let bottomBarItemPageNumber = UIBarButtonItem(customView: bottomBarPageCount)
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        if #available(iOS 16.0, *) {
+            bottomBarPrevPageButton.isHidden = true
+            bottomBarNextPageButton.isHidden = true
+        }
         bottomBar.setItems([bottomBarShareButton, flexibleSpace,bottomBarPrevPageButton,
                             bottomBarItemPageNumber,bottomBarNextPageButton, flexibleSpace,
                             bottomBarJumpToPageButton], animated: false)
@@ -98,6 +104,10 @@ class SimplePDFBottomBarView: UIView {
     }
 
     private func updatePageNumberView() {
+        if #available(iOS 16.0, *) {
+            bottomBarPrevPageButton.isHidden = currentPage == 1
+            bottomBarNextPageButton.isHidden = currentPage == totalPages
+        }
         bottomBarPageCount.text = "\(String(currentPage)) of \(String(totalPages))"
         bottomBarPageCount.sizeToFit()
     }
