@@ -69,10 +69,6 @@ class SimplePDFBottomBarView: UIView {
         bottomBarNextPageButton = UIBarButtonItem(title: ">", style: .plain, target: self, action: #selector(jumpToNextPage))
         let bottomBarItemPageNumber = UIBarButtonItem(customView: bottomBarPageCount)
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        if #available(iOS 16.0, *) {
-            bottomBarPrevPageButton.isHidden = true
-            bottomBarNextPageButton.isHidden = true
-        }
         bottomBar.setItems([bottomBarShareButton, flexibleSpace,bottomBarPrevPageButton,
                             bottomBarItemPageNumber,bottomBarNextPageButton, flexibleSpace,
                             bottomBarJumpToPageButton], animated: false)
@@ -105,8 +101,6 @@ class SimplePDFBottomBarView: UIView {
 
     private func updatePageNumberView() {
         if #available(iOS 16.0, *) {
-            bottomBarPrevPageButton.isHidden = false
-            bottomBarNextPageButton.isHidden = false
             bottomBarPrevPageButton.isEnabled = currentPage > 1
             bottomBarNextPageButton.isEnabled = currentPage < totalPages
         }
